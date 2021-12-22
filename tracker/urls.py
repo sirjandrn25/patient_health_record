@@ -5,6 +5,7 @@ from .views.prescriptions import *
 from .views.labreports import *
 from rest_framework.routers import SimpleRouter
 from .views.doctors import *
+from .views.departments import *
 
 
 router = SimpleRouter()
@@ -14,6 +15,7 @@ router.register('appointments',AppointViewSet,basename="appointment")
 router.register("prescriptions",PrescriptionViewSet,basename="prescription")
 router.register("medicine",MedicineViewSet,basename="medicine")
 router.register("labreports",LabReportViewSet,basename="labreport")
+router.register("departments",DepartmentViewSet,basename="department")
 
 
 
