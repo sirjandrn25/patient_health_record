@@ -26,7 +26,7 @@ class IsAuthenticated(BasePermission):
         header = request.META.get('HTTP_AUTHORIZATION')
         if header:
             payload = get_authenticate_user(header.split(' ')[1])
-            print(payload)
+            
             if payload:
                 request.data.update({'patient':payload.get('email')})
             return payload

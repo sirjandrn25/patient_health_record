@@ -41,10 +41,11 @@ class PatientLoginSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=120)
     password = serializers.CharField(min_length=8,max_length=100)
 
-    def valid(self,validated_data):
+    def validate(self,validated_data):
         email = validated_data.get('email')
         password = validated_data.get('password')
         patient = Patient.objects.filter(email=email).first()
+        
         if patient:
             if check_password(password,patient.password):
                 return validated_data

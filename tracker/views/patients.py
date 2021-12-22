@@ -20,9 +20,18 @@ class PatientViewSet(ModelViewSet):
 
 class PatientUpdateApiView(GenericAPIView):
     serializer_class = PatientUpdateSerializer
-    permission_classes = [IsAuthenticatedPatientOrReadOnly]
+    permission_classes = [IsAuthenticatedPatient]
 
     
+    def get(self,request):
+        
+        patient = Patient.objects.filter(email=request.data.get('patient')).first()
+        # print(request.data)
+        
+        serializer = self.serializer_class(patient)
+        
+        return Response(serializer.data)
+
     def put(self,request):
         email = request.data.pop('patient')[0]
         
@@ -43,7 +52,7 @@ class PatientLoginApiView(GenericAPIView):
     def post(self,request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            print(serializer.validated_data)
+            
             patient = serializer.validated_data.get('email')
            
             data = {
@@ -55,3 +64,19 @@ class PatientLoginApiView(GenericAPIView):
         return Response(serializer.errors,status=400)
     
 
+
+# class PatientProfileApiView(GenericAPIView):
+#     serializer_class = PatientSerializer
+#     permission_classes = [IsAuthenticatedPatient]
+#     def get(self,request):
+#         patient = Patient.objects.filter(email=request.data.get('email')).first()
+#         serializer = self.serializer_class(patient)
+#         return Response(serializer.data)
+
+
+#     def put(sef,request):
+#         serializer = self.serializer_class(data=request.data)
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#             return Response(serializer.data)
+    
