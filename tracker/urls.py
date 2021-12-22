@@ -2,6 +2,7 @@ from django.urls import path,include
 from .views.patients import *
 from .views.appointments import *
 from .views.prescriptions import *
+from .views.labreports import *
 from rest_framework.routers import SimpleRouter
 from .views.doctors import *
 
@@ -12,6 +13,8 @@ router.register('doctors',DoctorViewset,basename="doctor")
 router.register('appointments',AppointViewSet,basename="appointment")
 router.register("prescription",PrescriptionViewSet,basename="prescription")
 router.register("medicine",MedicineViewSet,basename="medicine")
+router.register("labreports",LabReportViewSet,basename="labreport")
+
 
 
 urlpatterns = [
