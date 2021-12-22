@@ -63,12 +63,16 @@ class PatientUpdateApiView(GenericAPIView):
         return Response(serializer.errors,status=400)
 
 
-# class PatientAvatarUpdateView(GenericAPIView):
-#     serializer_class = AvatarUpdateSerializer
-#     permission_classes = [IsAuthenticatedPatient]
-#     def patch(self,request):
-#         patient = Patient.objects.filter(email=request.data.get('patient')).first()
-#         return Response(patient)
+class PatientAvatarUpdateView(GenericAPIView):
+    serializer_class = AvatarUpdateSerializer
+    permission_classes = [IsAuthenticatedPatient]
+    def patch(self,request):
+        patient = Patient.objects.filter(email=request.data.get('patient')).first()
+        serializer = self.serializer_class(data=request.data,instance=patient,partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors,status=400)
 
 class PatientLoginApiView(GenericAPIView):
     serializer_class = PatientLoginSerializer
