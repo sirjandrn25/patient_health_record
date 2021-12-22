@@ -16,7 +16,7 @@ class Person(models.Model):
     gender = models.CharField(max_length=10,choices=gender_choices,default=gender_choices[0][0])
     date_of_birth = models.DateField()
     blood_group = models.CharField(max_length=10)
-    avatar = models.ImageField(upload_to="avatar/")
+    avatar = models.ImageField(upload_to="avatar/",blank=True,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     
