@@ -8,9 +8,12 @@ from django.contrib.auth.hashers import check_password, make_password
 class PatientUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Patient
-        fields = "__all__"
-        read_only_fields = ['id','created_at','email']
-
+        fields = ['id','full_name','gender','contact_no','blood_group','date_of_birth','email','created_at','avatar']
+        read_only_fields = ['id','created_at','email','avatar']
+class AvatarUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Patient
+        fields = ['avatar']
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:

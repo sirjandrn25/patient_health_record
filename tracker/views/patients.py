@@ -1,6 +1,6 @@
 from rest_framework.generics import GenericAPIView
 from tracker.serializers.appointments import AppointmentSerializer
-from ..serializers.patients import PatientLoginSerializer, PatientSerializer, PatientUpdateSerializer
+from ..serializers.patients import AvatarUpdateSerializer, PatientLoginSerializer, PatientSerializer, PatientUpdateSerializer
 from rest_framework.viewsets import ModelViewSet
 from ..models.patients import Patient
 from rest_framework.response import Response
@@ -48,7 +48,8 @@ class PatientUpdateApiView(GenericAPIView):
         return Response(serializer.data)
 
     def put(self,request):
-        email = request.data.pop('patient')[0]
+        email = request.data.pop('patient')
+        print(email)
         
         patient = Patient.objects.filter(email=email).first()
         
@@ -61,6 +62,13 @@ class PatientUpdateApiView(GenericAPIView):
         
         return Response(serializer.errors,status=400)
 
+
+# class PatientAvatarUpdateView(GenericAPIView):
+#     serializer_class = AvatarUpdateSerializer
+#     permission_classes = [IsAuthenticatedPatient]
+#     def patch(self,request):
+#         patient = Patient.objects.filter(email=request.data.get('patient')).first()
+#         return Response(patient)
 
 class PatientLoginApiView(GenericAPIView):
     serializer_class = PatientLoginSerializer
