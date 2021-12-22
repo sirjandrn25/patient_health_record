@@ -1,10 +1,12 @@
 from rest_framework.generics import GenericAPIView
+from tracker.serializers.appointments import AppointmentSerializer
 from ..serializers.patients import PatientLoginSerializer, PatientSerializer, PatientUpdateSerializer
 from rest_framework.viewsets import ModelViewSet
 from ..models.patients import Patient
 from rest_framework.response import Response
 from .authentication import *
 from ..permissions import *
+from rest_framework.decorators import action
 # from rest_framework.authentication import TokenAuthentication
 
 class PatientViewSet(ModelViewSet):
@@ -13,8 +15,19 @@ class PatientViewSet(ModelViewSet):
     # authentication_classes = [TokenAuthentication]
     # permission_classes = [IsAuthenticatedPatientOrReadOnly]
 
-    def retieve(self,request,pk):
-        patient = self.get_object()
+    
+
+
+    @action(detail=False,methods=['get'],permission_classes = [IsAuthenticatedPatient])
+    def appointments(self,request):
+        patient = Patient.objects.filter(email=request.data.get('patient')).first()
+        appointments = Appointment.objects.filter(patient=patient)
+        serializer = AppointmentSerializer(appointments,many=True)
+        return Response(serializer.data)
+
+        
+
+
 
 
 
