@@ -17,7 +17,7 @@ class PatientViewSet(ModelViewSet):
 
     
 
-
+    # patient get his appointments
     @action(detail=False,methods=['get'],permission_classes = [IsAuthenticatedPatient])
     def appointments(self,request):
         patient = Patient.objects.filter(email=request.data.get('patient')).first()
