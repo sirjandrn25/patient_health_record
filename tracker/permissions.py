@@ -1,4 +1,5 @@
 from rest_framework.permissions import BasePermission
+from tracker.models.appointments import Appointment
 from tracker.models.doctors import Doctor
 from .views.authentication import get_authenticate_user
 from rest_framework import permissions
@@ -43,6 +44,16 @@ class IsAuthenticated(BasePermission):
                     return True
         return False
 
+
+# class IsDoctorAppointment(BasePermission):
+#     def has_permission(self,request,view):
+#         doctor_email = request.data.get('doctor')
+#         doctor = Doctor.objects.filter(email=doctor_email).first()
+#         appointment = Appointment.objects.filter(id=request.data.get('appointment')).first()
+#         if appointment:
+
+        
+
         
 
     
@@ -57,6 +68,6 @@ class IsAuthenticatedDoctorOrReadOnly(BasePermission):
             payload = get_authenticate_user(header.split(' ')[1])
             print(payload)
             if payload:
-                request.data.update({'patient':payload.get('doctor')})
+                request.data.update({'doctor':payload.get('doctor')})
             return payload
         return False

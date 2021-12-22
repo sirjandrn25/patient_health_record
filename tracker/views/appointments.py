@@ -7,7 +7,9 @@ from rest_framework.response import Response
 from .authentication import *
 from ..permissions import *
 from django.shortcuts import get_object_or_404
-
+from rest_framework.decorators import action
+from ..serializers.prescriptions import *
+from ..models.prescriptions import *
 
 class AppointViewSet(ModelViewSet):
     queryset = Appointment.objects.all()
@@ -28,3 +30,12 @@ class AppointViewSet(ModelViewSet):
             serializer.save(patient=patient)
             return Response(serializer.data,status=201)
         return Response(serializer.errors,status=400)
+    
+    @action(detail=True,methods=['get'])
+    def prescriptions(self,request,pk):
+        appointment = self.get_object()
+        prescriptions=Prescription.objects.filter(appointment=appointment)
+        serializer = PrescriptionSeriailizer(prescriptions,many=True)
+        return Response(serializer.data)
+        
+
