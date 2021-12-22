@@ -21,6 +21,8 @@ class PatientViewSet(ModelViewSet):
 class PatientUpdateApiView(GenericAPIView):
     serializer_class = PatientUpdateSerializer
     permission_classes = [IsAuthenticatedPatientOrReadOnly]
+
+    
     def put(self,request):
         email = request.data.pop('patient')[0]
         

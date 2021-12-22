@@ -11,7 +11,7 @@ router = SimpleRouter()
 router.register('patients',PatientViewSet,basename='patient')
 router.register('doctors',DoctorViewset,basename="doctor")
 router.register('appointments',AppointViewSet,basename="appointment")
-router.register("prescription",PrescriptionViewSet,basename="prescription")
+router.register("prescriptions",PrescriptionViewSet,basename="prescription")
 router.register("medicine",MedicineViewSet,basename="medicine")
 router.register("labreports",LabReportViewSet,basename="labreport")
 
@@ -22,7 +22,7 @@ urlpatterns = [
     path('patient-accounts/login/',PatientLoginApiView.as_view()),
     path('patient-accounts/me/update/',PatientUpdateApiView.as_view()),
     
-
+    path("latest/prescription/medicines/",LatestPresciptionMedicinesApi.as_view()),
     path('doctor-accounts/login',DoctorLoginApiView.as_view()),
 
     

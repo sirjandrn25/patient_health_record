@@ -31,11 +31,14 @@ class AppointViewSet(ModelViewSet):
             return Response(serializer.data,status=201)
         return Response(serializer.errors,status=400)
     
+
     @action(detail=True,methods=['get'])
     def prescriptions(self,request,pk):
         appointment = self.get_object()
-        prescriptions=Prescription.objects.filter(appointment=appointment)
-        serializer = PrescriptionSeriailizer(prescriptions,many=True)
+        prescription=Prescription.objects.filter(appointment=appointment).first()
+        serializer = PrescriptionSeriailizer(prescription)
         return Response(serializer.data)
-        
+    
+    
+
 

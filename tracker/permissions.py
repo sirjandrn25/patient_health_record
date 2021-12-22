@@ -45,6 +45,17 @@ class IsAuthenticated(BasePermission):
         return False
 
 
+class IsAuthenticatedPatient(BasePermission):
+    def has_permission(self,request,obj):
+        header = request.META.get('HTTP_AUTHORIZATION')
+        if header:
+            payload = get_authenticate_user(header.split(' ')[1])
+            print(payload)
+            if payload:
+                request.data.update({'patient':payload.get('email')})
+            return payload
+        return False
+
 # class IsDoctorAppointment(BasePermission):
 #     def has_permission(self,request,view):
 #         doctor_email = request.data.get('doctor')
@@ -68,6 +79,17 @@ class IsAuthenticatedDoctorOrReadOnly(BasePermission):
             payload = get_authenticate_user(header.split(' ')[1])
             print(payload)
             if payload:
-                request.data.update({'doctor':payload.get('doctor')})
+                request.data.update({'doctor':payload.get('email')})
+            return payload
+        return False
+
+class IsAuthenticatedDoctor(BasePermission):
+    def has_permission(self,request,view):
+        header = request.META.get('HTTP_AUTHORIZATION')
+        if header:
+            payload = get_authenticate_user(header.split(' ')[1])
+            print(payload)
+            if payload:
+                request.data.update({'doctor':payload.get('email')})
             return payload
         return False
