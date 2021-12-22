@@ -8,6 +8,7 @@ from .authentication import *
 from ..permissions import *
 from rest_framework.decorators import action
 # from rest_framework.authentication import TokenAuthentication
+from rest_framework.views import APIView
 
 class PatientViewSet(ModelViewSet):
     queryset = Patient.objects.all()
@@ -18,15 +19,16 @@ class PatientViewSet(ModelViewSet):
     
 
     
-    @action(detail=False,methods=['get'],permission_classes = [IsAuthenticatedPatient])
-    def appointments(self,request):
+    
+        
+
+class PatientAppointmentApiView(APIView):
+    permission_classes = [IsAuthenticatedPatient]
+    def get(self,request):
         patient = Patient.objects.filter(email=request.data.get('patient')).first()
         appointments = Appointment.objects.filter(patient=patient)
         serializer = AppointmentSerializer(appointments,many=True)
         return Response(serializer.data)
-
-        
-
 
 
 

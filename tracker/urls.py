@@ -23,6 +23,7 @@ urlpatterns = [
     path('',include(router.urls)),
     path('patient-accounts/login/',PatientLoginApiView.as_view()),
     path('patient-accounts/me/profile/',PatientUpdateApiView.as_view()),
+    path('patient-accounts/me/appointments/',PatientAppointmentApiView.as_view()),
     
     
     path("latest/prescription/medicines/",LatestPresciptionMedicinesApi.as_view()),
