@@ -11,7 +11,7 @@ class PatientViewSet(ModelViewSet):
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
     # authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticatedPatientOrReadOnly]
+    # permission_classes = [IsAuthenticatedPatientOrReadOnly]
 
     def retieve(self,request,pk):
         patient = self.get_object()

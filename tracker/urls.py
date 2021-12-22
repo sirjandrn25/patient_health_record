@@ -1,5 +1,6 @@
 from django.urls import path,include
 from .views.patients import *
+from .views.appointments import *
 from rest_framework.routers import SimpleRouter
 from .views.doctors import *
 
@@ -7,6 +8,7 @@ from .views.doctors import *
 router = SimpleRouter()
 router.register('patients',PatientViewSet,basename='patient')
 router.register('doctors',DoctorViewset,basename="doctor")
+router.register('appointments',AppointViewSet,basename="appointment")
 
 urlpatterns = [
     path('',include(router.urls)),

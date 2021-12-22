@@ -19,7 +19,7 @@ class DoctorLoginApiView(GenericAPIView):
     def post(self,request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            doctor = serializer.validated_data('email')
+            doctor = serializer.validated_data.get('email')
             data = {
                 
                 'email':doctor

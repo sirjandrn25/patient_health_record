@@ -35,6 +35,7 @@ class DoctorLoginSerializer(serializers.Serializer):
         email = validated_data.get('email')
         password = validated_data.get('password')
         doctor = Doctor.objects.filter(email=email).first()
+        
         if doctor:
             if check_password(password,doctor.password):
                 return validated_data
