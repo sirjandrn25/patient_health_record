@@ -25,7 +25,7 @@ from django.views.static import serve
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Multi User Blog API",
+      title="Patient Medical Record Api description",
       default_version='v1',
       description="Patient Medical Record Api description",
       terms_of_service="https://www.google.com/policies/terms/",

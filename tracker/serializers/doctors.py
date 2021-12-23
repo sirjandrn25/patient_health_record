@@ -31,7 +31,7 @@ class DoctorLoginSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=120)
     password = serializers.CharField(min_length=8,max_length=100)
 
-    def valid(self,validated_data):
+    def validate(self,validated_data):
         email = validated_data.get('email')
         password = validated_data.get('password')
         doctor = Doctor.objects.filter(email=email).first()
@@ -49,3 +49,19 @@ class DoctorLoginSerializer(serializers.Serializer):
             }
             
         raise serializers.ValidationError(errors)
+
+
+class DoctorUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Doctor
+        fields = ['id','full_name','gender','contact_no','blood_group','date_of_birth','email','created_at','avatar','specialist','department']
+        read_only_fields = ['id','created_at','email','avatar']
+
+
+class DoctorAvailabilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Availability
+        fields = "__all__"
+        read_only_fields = ['id']
+
+

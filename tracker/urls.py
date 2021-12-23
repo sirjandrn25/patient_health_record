@@ -16,6 +16,7 @@ router.register("prescriptions",PrescriptionViewSet,basename="prescription")
 router.register("medicine",MedicineViewSet,basename="medicine")
 router.register("labreports",LabReportViewSet,basename="labreport")
 router.register("departments",DepartmentViewSet,basename="department")
+router.register("availabilities",DoctorAvailabiltiyApiView,basename="availability")
 
 
 
@@ -28,6 +29,8 @@ urlpatterns = [
     
     path("latest/prescription/medicines/",LatestPresciptionMedicinesApi.as_view()),
     path('doctor-accounts/login',DoctorLoginApiView.as_view()),
+    path('doctor-accounts/me/profile/',DoctorProfileApiView.as_view()),
+    path('doctor-accounts/me/appointments/',DoctorAppointmentsApiView.as_view()),
 
     
 ]
